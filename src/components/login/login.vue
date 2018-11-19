@@ -20,10 +20,12 @@
 
     <!-- User login second step: enter a two-factor token.-->
     <div v-if="user.twoFactor">
-        <Field name="two_factor_token" type="text"
-            :autofocus="true" :label="$t('two factor token')" :model.sync="twoFactorToken.value"
+        <TextField name="two_factor_token"
+            :autofocus="true"
+            :label="$t('two factor token')"
+            v-model="twoFactorToken.value"
             :placeholder="$t('enter your two factor token')"
-            :validation="$v.twoFactorToken.value"/>
+            :validation="$v.twoFactorToken.value" />
 
         <div class="buttons is-centered">
             <button v-if="app.session.available.length" type="button" class="button cf" @click="selectSession()">{{$t('change session')}}</button>
@@ -34,22 +36,25 @@
     <!-- Login without any sessions, or when selecting a new session.-->
     <div v-else-if="!app.session.available.length || app.session.active === 'new' || user.status === 'login'">
 
-        <Field v-if="!settings.webrtc.account.selection" name="endpoint" type="text"
+        <TextField v-if="!settings.webrtc.account.selection" name="endpoint"
             :label="$t('SIP websocket domain')"
-            :model.sync="settings.webrtc.endpoint.uri"
+            v-model="settings.webrtc.endpoint.uri"
             :help="$t('SIP provider with support for SIP over websockets and WebRTC.')"
-            :placeholder="$t('e.g. websocket.my-sip-provider.tld')"/>
+            :placeholder="$t('e.g. websocket.my-sip-provider.tld')" />
 
         <!-- Only show the username field with a 'new' session. -->
-        <Field name="username" type="text"
-            :autofocus="true" :label="$t('username')" :model.sync="user.username"
+        <TextField name="username"
+            :autofocus="true"
+            :label="$t('username')"
+            v-model="user.username"
             :placeholder="$t('enter your email address')"
-            :validation="$v.user.username"/>
+            :validation="$v.user.username" />
 
-        <Field name="password" type="password"
-            :label="$t('password')" :model.sync="password"
+        <PasswordField name="password"
+            :label="$t('password')"
+            v-model="password"
             :placeholder="$t('enter your password')"
-            :validation="$v.password"/>
+            :validation="$v.password" />
 
         <div class="buttons is-centered">
             <button v-if="app.session.available.length" :disabled="user.status === 'login'" type="button" class="button cf" @click="selectSession()">{{$t('change session')}}</button>
@@ -60,10 +65,11 @@
     <!-- Unlocking a selected session..-->
     <div v-else-if="app.session.active && app.session.active !== 'new'">
         <!-- Do not publish browser test screenshots without a password field. This would leak test credentials. -->
-        <Field name="password" type="password"
-            :label="$t('password')" :model.sync="password"
+        <PasswordField name="password"
+            :label="$t('password')"
+            v-model="password"
             :placeholder="$t('enter your password')"
-            :validation="$v.password"/>
+            :validation="$v.password" />
 
         <div class="buttons is-centered">
             <button v-if="app.session.available.length" :disabled="user.status === 'login'" type="button" class="button cf" @click="selectSession()">{{$t('change session')}}</button>

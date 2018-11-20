@@ -69,8 +69,6 @@ module.exports = (app) => {
                         }
                     }
                 }
-
-                if (this.validation) this.validation.$touch()
             },
         },
         mounted: function() {

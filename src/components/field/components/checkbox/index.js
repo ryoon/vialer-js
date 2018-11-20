@@ -11,6 +11,11 @@ module.exports = (app) => {
             value: null,
             placeholder: String,
         },
+        methods: {
+            updateModel: function(event) {
+                this.$emit('input', event.target.checked)
+            },
+        },
         render: templates.field_checkbox.r,
         staticRenderFns: templates.field_checkbox.s,
     }

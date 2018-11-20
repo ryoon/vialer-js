@@ -1,29 +1,16 @@
 module.exports = (app) => {
     const BaseField = {
-        methods: {
-            classes: function(block) {
-                let classes = {}
-                if (block === 'input') {
-                    classes.input = true
-                    if (this.invalidFieldValue) classes['is-danger'] = true
-                } else if (block === 'select') {
-                    classes.select = true
-                    classes['has-button'] = this.hasButton
-                    if (this.invalidFieldValue) classes['is-danger'] = true
-                } else if (block === 'select-search') {
-                    classes['has-button'] = this.hasButton
-                    classes['select-search'] = true
-                } else if (block === 'label') {
-                    // Field has no validation at all.
-                    if (this.validation) {
-                        if (this.validation.required === false || this.validation.required === true) {
-                            classes.required = true
-                        }
-                    }
-                }
-
-                return classes
-            },
+        props: {
+            autofocus: Boolean,
+            change: Function,
+            click: Function,
+            css: '',
+            disabled: Boolean,
+            help: String,
+            label: String,
+            name: '',
+            validation: Object,
+            autofocus: Boolean,
         },
         computed: {
             /**
@@ -33,7 +20,7 @@ module.exports = (app) => {
              */
             invalidFieldValue: function() {
                 if (!this.validation) return null
-                // if (!this.validation.$dirty) return null
+                if (!this.validation.$dirty) return null
                 // Validation for `requiredIf` depends on the state of other
                 // fields. Therefor don't use the $dirty check on this field,
                 // but go straight for the $invalid state.
@@ -111,16 +98,30 @@ module.exports = (app) => {
                 return err.join('</br>')
             },
         },
-        props: {
-            autofocus: Boolean,
-            change: Function,
-            click: Function,
-            css: '',
-            disabled: Boolean,
-            help: String,
-            label: String,
-            name: '',
-            validation: Object,
+        methods: {
+            classes: function(block) {
+                let classes = {}
+                if (block === 'input') {
+                    classes.input = true
+                    if (this.invalidFieldValue) classes['is-danger'] = true
+                } else if (block === 'select') {
+                    classes.select = true
+                    classes['has-button'] = this.hasButton
+                    if (this.invalidFieldValue) classes['is-danger'] = true
+                } else if (block === 'select-search') {
+                    classes['has-button'] = this.hasButton
+                    classes['select-search'] = true
+                } else if (block === 'label') {
+                    // Field has no validation at all.
+                    if (this.validation) {
+                        if (this.validation.required === false || this.validation.required === true) {
+                            classes.required = true
+                        }
+                    }
+                }
+
+                return classes
+            },
         },
         render: templates.field_base.r,
         staticRenderFns: templates.field_base.s,

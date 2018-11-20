@@ -5,7 +5,7 @@
         :id="name"
         :name="name"
         :checked="value"
-        @input="$emit('input', $event.target.checked)" />
+        @input="updateModel($event)" />
     <label :for="name" class="checkbox ca">{{label}}</label>
     <em class="help cf" v-if="help && !invalidFieldValue">{{help}}</em>
     <span v-if="invalidFieldValue" class="validation-message help is-danger"

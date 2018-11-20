@@ -1,10 +1,11 @@
 <div class="field field-password">
     <label class="label ca" :class="classes('label')" :for="name">{{label}}</label>
     <div class="control has-icons-right">
-        <input :type="visible ? 'text' : 'password'"
+        <input ref="input"
+            :type="visible ? 'text' : 'password'"
             :class="classes('input')"
             :value="value"
-            @input="$emit('input', $event.target.value)"
+            @input="updateModel($event)"
             :id="name"
             :name="name"
             :placeholder="placeholder.capitalize()"

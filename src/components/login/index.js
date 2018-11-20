@@ -32,10 +32,8 @@ module.exports = (app) => {
                                     // Remove the password from the state.
                                     app.setState({user: {password: null}})
                                 } else {
-                                    console.log('setting not valid 2fa: ', message)
                                     this.twoFactorToken.valid = valid
                                     this.twoFactorToken.message = message.capitalize()
-                                    this.$v.$reset()
                                 }
                             },
                             password: this.password,
@@ -85,12 +83,6 @@ module.exports = (app) => {
             url: 'settings.platform.url',
             user: 'user',
             vendor: 'app.vendor',
-        },
-        updated: function() {
-            // Validation needs to be reset after an update, so
-            // the initial validation is only done after a user
-            // action.
-            this.$v.$reset()
         },
         validations: function() {
             // Bind the API response message to the validator $params.

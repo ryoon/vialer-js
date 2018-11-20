@@ -2,6 +2,7 @@ module.exports = (app) => {
 
     components = {
         TextField: require('./components/text'),
+        TextAreaField: require('./components/textarea'),
         PasswordField: require('./components/password'),
         CheckboxField: require('./components/checkbox'),
         SelectField: require('./components/select'),

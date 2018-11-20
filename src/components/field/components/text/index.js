@@ -11,7 +11,16 @@ module.exports = (app) => {
             value: null,
             placeholder: String,
         },
-        // TODO updateModel which touches validation.
+        mounted() {
+            if (this.autofocus) {
+                this.$nextTick(() => this.$refs.input.focus())
+            }
+        },
+        methods: {
+            updateModel: function(event) {
+                this.$emit('input', event.target.value)
+            },
+        },
         render: templates.field_text.r,
         staticRenderFns: templates.field_text.s,
     }

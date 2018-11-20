@@ -8,15 +8,24 @@ module.exports = (app) => {
     const PasswordField = {
         extends: BaseField,
         props: {
-            value: null,
+            autofocus: Boolean,
             placeholder: String,
+            value: null,
         },
-        data: function() {
+        data() {
             return {
                 visible: false,
             }
         },
+        mounted() {
+            if (this.autofocus) {
+                this.$nextTick(() => this.$refs.input.focus())
+            }
+        },
         methods: {
+            updateModel($event) {
+                this.$emit('input', $event.target.value)
+            },
             /*
             * Toggles visibility flag on a password field.
             */

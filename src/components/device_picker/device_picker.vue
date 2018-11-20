@@ -4,7 +4,8 @@
         :label="$t('headset microphone')"
         v-model="devices.sinks.headsetInput"
         :options="devices.input"
-        :validation="$v.settings.webrtc.devices.sinks.headsetInput.valid">
+        :validation="$v.settings.webrtc.devices.sinks.headsetInput.valid"
+        @input="$v.settings.webrtc.devices.sinks.headsetInput.valid.$touch()">
         <div slot="select-after" v-if="$v.settings.webrtc.devices.sinks.headsetInput.valid.customValid">
             <em class="help cf">{{$t('does the microphone of your headset respond?')}}</em>
             <Soundmeter class="soundmeter"/>
@@ -16,7 +17,8 @@
         :label="$t('headset audio')"
         v-model="devices.sinks.headsetOutput"
         :options="devices.output"
-        :validation="$v.settings.webrtc.devices.sinks.headsetOutput.valid">
+        :validation="$v.settings.webrtc.devices.sinks.headsetOutput.valid"
+        @input="$v.settings.webrtc.devices.sinks.headsetOutput.valid.$touch()">
         <button slot="select-extra" class="ringtone-play button is-link select-button"
             :disabled="playing.headsetOutput" @click="playSound('busyTone', 'headsetOutput')">
             <span class="icon is-small"><icon name="ring"/></span>
@@ -28,7 +30,8 @@
         :label="$t('ringtone audio')"
         v-model="devices.sinks.ringOutput"
         :options="devices.output"
-        :validation="$v.settings.webrtc.devices.sinks.ringOutput.valid">
+        :validation="$v.settings.webrtc.devices.sinks.ringOutput.valid"
+        @input="$v.settings.webrtc.devices.sinks.headsetOutput.valid.$touch()">
         <button slot="select-extra" class="ringtone-play button is-link select-button"
             :disabled="playing.ringOutput" @click="playSound('ringTone', 'ringOutput')">
             <span class="icon is-small"><icon name="ring"/></span>

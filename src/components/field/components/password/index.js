@@ -8,7 +8,6 @@ module.exports = (app) => {
     const PasswordField = {
         extends: BaseField,
         props: {
-            autofocus: Boolean,
             placeholder: String,
             value: null,
         },

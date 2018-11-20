@@ -1,6 +1,6 @@
 module.exports = (app) => {
 
-    components = {
+    const components = {
         TextField: require('./components/text'),
         TextAreaField: require('./components/textarea'),
         PasswordField: require('./components/password'),

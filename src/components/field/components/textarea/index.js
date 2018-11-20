@@ -12,7 +12,7 @@ module.exports = (app) => {
             placeholder: String,
         },
         methods: {
-            updateModel: function (event) {
+            updateModel(event) {
                 let lines = event.target.value.split('\n')
                 this.$emit('input', lines)
             },

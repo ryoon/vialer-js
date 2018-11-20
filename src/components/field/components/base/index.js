@@ -10,7 +10,6 @@ module.exports = (app) => {
             label: String,
             name: '',
             validation: Object,
-            autofocus: Boolean,
         },
         computed: {
             /**

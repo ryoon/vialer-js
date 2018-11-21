@@ -9,8 +9,8 @@ module.exports = (app) => {
         computed: app.helpers.sharedComputed(),
         created: function() {
             // Restore password from state to local data if set.
-            if (this.user.password) {
-                this.password = this.user.password
+            if (this.user.stashedPassword) {
+                this.password = this.user.stashedPassword
             }
         },
         data: function() {
@@ -30,7 +30,7 @@ module.exports = (app) => {
                             callback: ({valid, message}) => {
                                 if (valid) {
                                     // Remove the password from the state.
-                                    app.setState({user: {password: null}})
+                                    app.setState({user: {stashedPassword: null}})
                                 } else {
                                     this.twoFactorToken.valid = valid
                                     this.twoFactorToken.message = message.capitalize()
@@ -42,11 +42,12 @@ module.exports = (app) => {
                         })
                     } else {
                         app.emit('bg:user:login', {
-                            callback: ({twoFactor}) => {
+                            callback: ({valid, twoFactor}) => {
                                 if (twoFactor) {
                                     // Save password in the (bg-)state, so that if the user
-                                    // we still have the password for the next login.
-                                    app.setState({user: {password: this.password}})
+                                    // closes the popup (in the web ext) we can restore the
+                                    // password for the next login attempt.
+                                    app.setState({user: {stashedPassword: this.password}})
                                 }
                             },
                             endpoint: this.settings.webrtc.endpoint.uri,
